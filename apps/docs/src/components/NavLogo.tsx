@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function NavLogo() {
   return (
     <div
@@ -8,8 +10,7 @@ export default function NavLogo() {
         fontSize: "32px",
       }}
     >
-      {/* TODO: figure out how to size Logo and use that here instead */}
-      <img
+      <Image
         src="/ajel2.svg"
         style={{ height: "calc(var(--nextra-navbar-height) - 35px)" }}
         alt="ajel logo"
