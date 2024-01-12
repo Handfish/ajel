@@ -1,0 +1,47 @@
+# Aliasing `ajel`
+
+When picking a name for `ajel` I made sure to pick a beautiful chord to type. However, I understand that some people may not like the name `ajel` and may want to alias it to something else.
+I may recommend the name [blimpy](https://www.youtube.com/watch?v=2VOnKMJqIL0) as it is also a beautiful chord to type. If you want to alias `ajel` to a different name, you can do so by passing the `ajelAlias` option to the rules you want to use.
+
+This example `.eslintrc.js` shows how to alias `ajel` to a different name. Providing an alias to these rules will produce the proper in-editor hints and expected functionality from the linter.
+
+```javascript
+module.exports = {
+  plugins: ['ajel'],
+  extends: [
+    'plugin:ajel/recommended',
+  ],
+  rules: {
+    'ajel/ajel-const-tuples': [
+      'error',
+      {
+        ajelAlias: "blimpy",
+      },
+    ],
+    'ajel/ajel-require-error-handling': [
+      'error',
+      {
+        ajelAlias: 'blimpy',
+      },
+    ],
+    'ajel/ajel-require-tuple-declaration': [
+      'error',
+      {
+        ajelAlias: 'blimpy',
+      },
+    ],
+    'ajel/ajel-disable-try-catch': [
+      'error',
+      {
+        ajelAlias: 'blimpy',
+      },
+    ],
+  },
+};
+```
+
+Then use the rename function in the import statement.
+
+```javascript
+import { ajel as blimpy } from 'ajel';
+```

@@ -1,0 +1,17 @@
+{
+  "exclude": ["node_modules"],
+  "extends": "@ajel/tsconfig/nextjs.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts"]
+}

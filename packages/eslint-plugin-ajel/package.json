@@ -1,0 +1,82 @@
+{
+  "name": "eslint-plugin-ajel",
+  "version": "1.0.0",
+  "description": "",
+  "engines": {
+    "node": ">=8.10.0"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "cd ../.. && husky install packages/eslint-plugin-ajel/.husky",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "dev": "tsup src/index.ts --no-splitting --minify --watch",
+    "build": "tsup src/index.ts --no-splitting --minify",
+    "lint": "run-s lint:ts lint:eslint lint:prettier",
+    "lint:ts": "tsc --noEmit",
+    "lint:eslint": "eslint '**/*.{js,ts}'",
+    "lint:prettier": "prettier '**/*.{js,ts,json,yaml,md}'",
+    "fix": "run-s fix:eslint fix:prettier",
+    "fix:eslint": "npm run lint:eslint -- --fix",
+    "fix:prettier": "npm run lint:prettier -- --write",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "release": "semantic-release",
+    "add-rule": "tsx scripts/add-rule",
+    "update": "tsx scripts/update",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "eslint": ">=5.16.0"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.56.0",
+    "@types/estree": "^1.0.5",
+    "@types/jest": "^29.5.11",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "@typescript-eslint/rule-tester": "^6.15.0",
+    "@typescript-eslint/types": "^6.15.0",
+    "eslint": "^8.56.0",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "lint-staged": "^13.3.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.8",
+    "rimraf": "^4.4.1",
+    "ts-jest": "^29.1.1",
+    "tsup": "^6.7.0",
+    "tsx": "^4.7.0",
+    "typescript": "^4.9.5"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "pnpm run lint -- --fix",
+      "prettier --write"
+    ],
+    "*.{json,yaml,md}": [
+      "prettier --write"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Handfish/ajel.git"
+  },
+  "keywords": [
+    "typescript",
+    "template",
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Handfish/ajel/issues"
+  },
+  "homepage": "https://github.com/Handfish/ajel/eslint-plugin-ajel#readme"
+}
