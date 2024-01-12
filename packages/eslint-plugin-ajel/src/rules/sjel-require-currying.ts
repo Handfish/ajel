@@ -1,30 +1,25 @@
 import { TSESTree } from '@typescript-eslint/utils';
 import { createRule } from '../utils/createRule';
-import { hasAjelCallExpressionChild } from '../utils/hasAjelCallExpressionChild';
 
 type Options = [
   {
-    ajelAlias?: string;
     sjelAlias?: string;
   },
 ];
-type MessageIds = 'const';
+type MessageIds = 'currying';
 
 const rule = createRule<Options, MessageIds>({
-  name: 'ajel-const-tuples',
+  name: 'sjel-require-currying',
   meta: {
     type: 'problem',
     docs: {
-      description: 'This rule enforces the use of a const calling ajel or sjel',
+      description: 'This rule enforces the use currying when calling sjel',
       recommended: 'error',
     },
     schema: [
       {
         type: 'object',
         properties: {
-          ajelAlias: {
-            type: 'string',
-          },
           sjelAlias: {
             type: 'string',
           },
@@ -33,12 +28,11 @@ const rule = createRule<Options, MessageIds>({
       },
     ],
     messages: {
-      const: "Utilize 'const' when calling {{ajelOrSjel}}",
+      currying: 'Use currying when calling {{sjelAlias}}',
     },
   },
   defaultOptions: [
     {
-      ajelAlias: 'ajel',
       sjelAlias: 'sjel',
     },
   ],
@@ -46,20 +40,19 @@ const rule = createRule<Options, MessageIds>({
   create: (context, [options]) => {
     return {
       VariableDeclaration(node: TSESTree.VariableDeclaration): void {
-        const [hasAjelCallExpression, ajelOrSjel] = hasAjelCallExpressionChild(
-          node,
-          options.ajelAlias,
-          options.sjelAlias
-        );
-
-        if (hasAjelCallExpression && ajelOrSjel) {
-          if (node.kind !== 'const') {
+        for (const declarator of node.declarations) {
+          if (
+            declarator.init &&
+            declarator.init.type === 'CallExpression' &&
+            declarator.init.callee.type === 'Identifier' &&
+            declarator.init.callee.name ===
+              (options.sjelAlias ? options.sjelAlias : 'sjel')
+          ) {
             context.report({
               node,
-              messageId: 'const',
+              messageId: 'currying',
               data: {
-                ajelOrSjel:
-                  ajelOrSjel === 'ajel' ? options.ajelAlias : options.sjelAlias,
+                sjelAlias: options.sjelAlias,
               },
             });
           }

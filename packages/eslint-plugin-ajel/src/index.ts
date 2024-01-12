@@ -6,6 +6,7 @@ import ajelDisableTryCatch from './rules/ajel-disable-try-catch';
 import ajelRequireTupleDeclaration from './rules/ajel-require-tuple-declaration';
 import ajelStrictErrorInstanceof from './rules/ajel-strict-error-instanceof';
 import ajelRequireErrorHandling from './rules/ajel-require-error-handling';
+import sjelRequireCurrying from './rules/sjel-require-currying';
 
 export const configs = {
   recommended,
@@ -18,4 +19,5 @@ export const rules = {
   'ajel-require-tuple-declaration': ajelRequireTupleDeclaration,
   'ajel-strict-error-instanceof': ajelStrictErrorInstanceof,
   'ajel-require-error-handling': ajelRequireErrorHandling,
+  'sjel-require-currying': sjelRequireCurrying,
 };

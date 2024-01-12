@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['src/index.ts'],
-  outDir: 'eslint-plugin-ajel',
+  outDir: 'dist',
   splitting: false,
   minify: true,
   // clean: true,

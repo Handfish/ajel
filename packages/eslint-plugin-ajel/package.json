@@ -1,14 +1,16 @@
 {
   "name": "eslint-plugin-ajel",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.12",
+  "description": "Eslint rules for ajel, the library which encourages handling errors similarly to Golang",
   "engines": {
     "node": ">=8.10.0"
   },
-  "main": "dist/index.js",
   "files": [
     "dist"
   ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "prepare": "cd ../.. && husky install packages/eslint-plugin-ajel/.husky",
     "clean": "rimraf dist",
@@ -55,7 +57,6 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "pnpm run lint -- --fix",
       "prettier --write"
     ],
     "*.{json,yaml,md}": [

@@ -11,7 +11,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next"
   },
   "dependencies": {
-    "@ajel/core": "workspace:*",
+    "@next/eslint-plugin-next": "^14.0.4",
+    "ajel": "workspace:*",
     "next": "^14.0.4",
     "nextra": "^2.13.2",
     "nextra-theme-blog": "^2.13.2",

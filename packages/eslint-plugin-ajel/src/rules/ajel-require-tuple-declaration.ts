@@ -5,7 +5,8 @@ import { hasAjelCallExpressionChild } from '../utils/hasAjelCallExpressionChild'
 type Options = [
   {
     ajelAlias?: string;
-  }
+    sjelAlias?: string;
+  },
 ];
 type MessageIds = 'limitDeclarations' | 'tupleLen2';
 
@@ -25,31 +26,44 @@ const rule = createRule<Options, MessageIds>({
           ajelAlias: {
             type: 'string',
           },
+          sjelAlias: {
+            type: 'string',
+          },
         },
         additionalProperties: false,
       },
     ],
     messages: {
-      limitDeclarations: 'Declare only the tuple when calling {{ajelAlias}}',
+      limitDeclarations: 'Declare only the tuple when calling {{ajelOrSjel}}',
       tupleLen2:
-        'Variable declarations must be a tuple of length 2 when calling {{ajelAlias}}',
+        'Variable declarations must be a tuple of length 2 when calling {{ajelOrSjel}}',
     },
   },
   defaultOptions: [
     {
       ajelAlias: 'ajel',
+      sjelAlias: 'sjel',
     },
   ],
 
-  create: (context, [{ ajelAlias }]) => {
+  create: (context, [{ ajelAlias, sjelAlias }]) => {
     return {
       VariableDeclaration(node: TSESTree.VariableDeclaration): void {
-        if (hasAjelCallExpressionChild(node, ajelAlias)) {
+        const [hasAjelCallExpression, ajelOrSjel] = hasAjelCallExpressionChild(
+          node,
+          ajelAlias,
+          sjelAlias
+        );
+
+        if (hasAjelCallExpression && ajelOrSjel) {
           // Check if there's more than one declarator
           if (node.declarations.length !== 1) {
             context.report({
               node,
               messageId: 'limitDeclarations',
+              data: {
+                ajelOrSjel: ajelOrSjel === 'ajel' ? ajelAlias : sjelAlias,
+              },
             });
           }
           const declarator = node.declarations[0];
@@ -62,7 +76,7 @@ const rule = createRule<Options, MessageIds>({
               node,
               messageId: 'tupleLen2',
               data: {
-                ajelAlias,
+                ajelOrSjel: ajelOrSjel === 'ajel' ? ajelAlias : sjelAlias,
               },
             });
           }

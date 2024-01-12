@@ -22,8 +22,8 @@ This rule does not have any configurable options.
 
 ## Implementation
 
-- [Rule source](../../src/rules/ajel-disable-throw.ts)
-- [Test source](../../tests/rules/ajel-disable-throw.ts)
+- [Rule source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/src/rules/ajel-disable-throw.ts)
+- [Test source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/tests/rules/ajel-disable-throw.ts)
 
 ## Examples
 

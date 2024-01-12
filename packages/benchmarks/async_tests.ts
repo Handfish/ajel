@@ -26,14 +26,13 @@ function fibonacci(n: number): number {
 }
 
 
-// Fibonacci calculation (CPU-bound task)
 async function createAndDeleteFilesAsync(n: number, nameToken: string): Promise<number> {
   return new Promise<number>((resolve) => {
     resolve(createAndDeleteFiles(n, nameToken));
   });
 }
 
-export async function tryAsyncGoFib(n: number) {
+export async function tryAjelFib(n: number) {
   const [res, err] = await ajel(
     calculateFibonacciAsync(n)
   );
@@ -87,7 +86,7 @@ function createAndDeleteFiles(i: number, nameToken: string) {
   return 1;
 }
 
-export async function tryAsyncGoFile(n: number) {
+export async function tryAjelFile(n: number) {
   const [res, err] = await ajel(
     createAndDeleteFilesAsync(n, "A")
   );

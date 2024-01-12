@@ -42,7 +42,7 @@ async function main() {
 import { sjel } from 'ajel';
 
 function main() {
-  const [result, err] = sjel(JSON.parse)("{}");
+  const [res, err] = sjel(fs.readFileSync)(path, { encoding: 'utf8' });
 
   if (err) {
     return err;
@@ -55,24 +55,4 @@ function main() {
 `ajel` and `sjel` are a set of functions that return a tuple representing a potential result and a potential error.
 On success, the result item has value. On error, the error item has value. It's that simple.
 
-More interestingly, it comes with a series of linting tools to help enforce the paradigm available in the package `eslint-plugin-ajel`
-
-### Basic eslintrc
-
-```javascript
-{
-  plugins: ['ajel'],
-  extends: [
-    'plugin:ajel/recommended',
-  ],
-}
-```
-
-### What's inside this repo?
-
-#### Apps and Packages
-
-- `docs`: A placeholder documentation site powered by [Next.js](https://nextjs.org/)
-- `ajel`: The core library (function)
-- `eslint-plugin-ajel`: Eslint rules for proper usage and error handling paradigm
-- `benchmarks`: Testing ajel's performance against other methods
+More interestingly, it comes with a series of linting tools to help enforce the paradigm available in the package [eslint-plugin-ajel](https://www.npmjs.com/package/eslint-plugin-ajel)

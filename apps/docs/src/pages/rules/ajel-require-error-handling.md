@@ -14,11 +14,16 @@ This rule checks for the usage of the error variable (`err`) in the context of a
 
 ## Why is this Rule Useful?
 
+> Your leading underscores won't save you now.
+
 Handling errors properly is crucial for robust and maintainable code. This rule encourages developers to explicitly handle errors returned from `ajel` calls, reducing the risk of silent failures and improving the overall reliability of the codebase.
+
+This rule is not entirely redundant to `noUnusedLocals` - it is made in mind to be utilized simultaneously. This rule is meant to still throw errors when a developer uses a leading underscore to mark the variable as local only.
 
 ## Options
 
 - `ajelAlias` (default: 'ajel'): Specify the alias for the ajel method. This allows you to customize the method name if it differs from the default 'ajel'.
+- `sjelAlias` (default: 'sjel'): Specify the alias for the sjel method. This allows you to customize the method name if it differs from the default 'sjel'.
 
 ## Implementation
 
@@ -28,12 +33,27 @@ Handling errors properly is crucial for robust and maintainable code. This rule 
 ## Examples
 
 ```javascript
+// ajel
 // Bad: Declaring error variable but not using it
 const [data, err] = await ajel(Promise.resolve(1));
-// 'err' should be handled, e.g., by logging or throwing
+// 'err' should be handled, e.g., by logging or other usage
 
 // Good: Properly handling the error variable
 const [data, err] = await ajel(Promise.resolve(1));
+
+if (err) {
+  console.error(err);
+}
+
+// -----
+
+// sjel
+// Bad: Declaring error variable but not using it
+const [data, err] = sjel(fs.readFileSync)(path, { encoding: 'utf8' });
+// 'err' should be handled, e.g., by logging or other usage
+
+// Good: Properly handling the error variable
+const [data, err] = sjel(fs.readFileSync)(path, { encoding: 'utf8' });
 
 if (err) {
   console.error(err);

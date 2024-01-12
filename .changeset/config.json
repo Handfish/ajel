@@ -6,5 +6,6 @@
   "linked": [],
   "access": "public",
   "updateInternalDependencies": "patch",
-  "ignore": ["@acme/docs"]
+  "baseBranch": "main",
+  "ignore": ["@ajel/docs", "@ajel/benchmarks"]
 }

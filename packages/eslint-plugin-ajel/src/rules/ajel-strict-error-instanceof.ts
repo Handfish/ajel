@@ -6,7 +6,8 @@ import { isFoundInBinaryExpressionWithInstanceOf } from '../utils/isFoundInBinar
 type Options = [
   {
     ajelAlias?: string;
-  }
+    sjelAlias?: string;
+  },
 ];
 type MessageIds = 'instanceofError';
 
@@ -26,32 +27,44 @@ const rule = createRule<Options, MessageIds>({
           ajelAlias: {
             type: 'string',
           },
+          sjelAlias: {
+            type: 'string',
+          },
         },
         additionalProperties: false,
       },
     ],
     messages: {
-      instanceofError: 'Utilize err instanceof',
+      instanceofError: 'Utilize err instanceof when using {{ajelOrSjel}}',
     },
   },
   defaultOptions: [
     {
       ajelAlias: 'ajel',
+      sjelAlias: 'sjel',
     },
   ],
 
-  create: (context, [{ ajelAlias }]) => {
+  create: (context, [{ ajelAlias, sjelAlias }]) => {
     let errorVariable: TSESTree.Identifier | null = null;
+    let ajelOrSjelReport: 'ajel' | 'sjel' | undefined = undefined;
 
     return {
       VariableDeclaration(node: TSESTree.VariableDeclaration): void {
-        if (hasAjelCallExpressionChild(node, ajelAlias)) {
+        const [hasAjelCallExpression, ajelOrSjel] = hasAjelCallExpressionChild(
+          node,
+          ajelAlias,
+          sjelAlias
+        );
+
+        if (hasAjelCallExpression && ajelOrSjel) {
           const declarator = node.declarations[0];
           if (
             declarator.id.type === 'ArrayPattern' &&
             declarator.id.elements[1]?.type === 'Identifier'
           ) {
             errorVariable = declarator.id.elements[1];
+            ajelOrSjelReport = ajelOrSjel;
           }
         }
       },
@@ -65,6 +78,9 @@ const rule = createRule<Options, MessageIds>({
           context.report({
             node: errorVariable,
             messageId: 'instanceofError',
+            data: {
+              ajelOrSjel: ajelOrSjelReport === 'ajel' ? ajelAlias : sjelAlias,
+            },
           });
         }
       },

@@ -17,6 +17,7 @@ Properly narrowing the error type with `instanceof` promotes more precise error 
 ## Options
 
 - `ajelAlias` (default: 'ajel'): Specify the alias for the ajel method. This allows you to customize the method name if it differs from the default 'ajel'.
+- `sjelAlias` (default: 'sjel'): Specify the alias for the sjel method. This allows you to customize the method name if it differs from the default 'sjel'.
 
 ## Implementation
 
@@ -26,6 +27,7 @@ Properly narrowing the error type with `instanceof` promotes more precise error 
 ## Examples
 
 ```javascript
+// ajel
 // Bad: Error variable not narrowed with instanceof
 const [data, err] = await ajel(Promise.resolve(1));
 // Missing instanceof check for specific error type
@@ -35,6 +37,23 @@ if (err) {
 
 // Good: Error variable narrowed with instanceof
 const [data, err] = await ajel(Promise.resolve(1));
+// Handle specific error type
+if (err instanceof SpecificError) {
+  console.error(err.message);
+}
+
+// -----
+
+// sjel
+// Bad: Error variable not narrowed with instanceof
+const [data, err] = sjel(() => 1)();
+// Missing instanceof check for specific error type
+if (err) {
+  console.error(err);
+}
+
+// Good: Error variable narrowed with instanceof
+const [data, err] = sjel(() => 1)();
 // Handle specific error type
 if (err instanceof SpecificError) {
   console.error(err.message);

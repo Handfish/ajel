@@ -16,32 +16,48 @@ module.exports = {
       'error',
       {
         ajelAlias: "blimpy",
-      },
-    ],
-    'ajel/ajel-require-error-handling': [
-      'error',
-      {
-        ajelAlias: 'blimpy',
+        sjelAlias: "limpyb",
       },
     ],
     'ajel/ajel-require-tuple-declaration': [
       'error',
       {
         ajelAlias: 'blimpy',
+        sjelAlias: "limpyb",
       },
     ],
     'ajel/ajel-disable-try-catch': [
       'error',
       {
         ajelAlias: 'blimpy',
+        sjelAlias: "limpyb",
+      },
+    'ajel/sjel-require-currying': [
+      'error',
+      {
+        sjelAlias: "limpyb",
+      },
+    //Use one of the two following rules
+    'ajel/ajel-require-error-handling': [
+      'error',
+      {
+        ajelAlias: 'blimpy',
+        sjelAlias: "limpyb",
       },
     ],
+    //'ajel/ajel-strict-error-instanceof': [
+    //  'off',
+    //  {
+    //    ajelAlias: 'blimpy',
+    //    sjelAlias: "limpyb",
+    //  },
+    //],
   },
-};
+}
 ```
 
 Then use the rename function in the import statement.
 
 ```javascript
-import { ajel as blimpy } from 'ajel';
+import { ajel as blimpy, sjel as limpyb } from 'ajel';
 ```

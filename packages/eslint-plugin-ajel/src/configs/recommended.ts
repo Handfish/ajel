@@ -8,5 +8,6 @@ export const recommended = {
     'ajel/ajel-require-tuple-declaration': 'error',
     'ajel/ajel-require-error-handling': 'error',
     'ajel/ajel-strict-error-instanceof': 'off',
+    'ajel/sjel-require-currying': 'error',
   },
 };

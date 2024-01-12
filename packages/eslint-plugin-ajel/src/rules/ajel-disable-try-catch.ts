@@ -10,7 +10,8 @@ export function isTryStatement(
 type Options = [
   {
     ajelAlias?: string;
-  }
+    sjelAlias?: string;
+  },
 ];
 type MessageIds = 'tryStatement';
 
@@ -30,21 +31,26 @@ const rule = createRule<Options, MessageIds>({
           ajelAlias: {
             type: 'string',
           },
+          sjelAlias: {
+            type: 'string',
+          },
         },
         additionalProperties: false,
       },
     ],
     messages: {
-      tryStatement: 'Consider using {{ajelAlias}} instead of try catch',
+      tryStatement:
+        'Consider using {{ajelAlias}} or {{sjelAlias}} instead of try catch',
     },
   },
   defaultOptions: [
     {
       ajelAlias: 'ajel',
+      sjelAlias: 'sjel',
     },
   ],
 
-  create: (context, [{ ajelAlias }]) => {
+  create: (context, [{ ajelAlias, sjelAlias }]) => {
     return {
       TryStatement: (node: TSESTree.TryStatement) => {
         // Check if it's a TryStatement
@@ -55,6 +61,7 @@ const rule = createRule<Options, MessageIds>({
             messageId: 'tryStatement',
             data: {
               ajelAlias,
+              sjelAlias,
             },
           });
         }

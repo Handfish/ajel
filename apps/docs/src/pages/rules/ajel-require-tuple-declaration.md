@@ -19,6 +19,7 @@ This rule assists developers towards the proper usage of ajel.
 ## Options
 
 - `ajelAlias` (default: 'ajel'): Specify the alias for the ajel method. This allows you to customize the method name if it differs from the default 'ajel'.
+- `sjelAlias` (default: 'sjel'): Specify the alias for the sjel method. This allows you to customize the method name if it differs from the default 'sjel'.
 
 ## Implementation
 
@@ -28,6 +29,7 @@ This rule assists developers towards the proper usage of ajel.
 ## Examples
 
 ```javascript
+// ajel
 // Bad: Incorrect structure
 const [value] = await ajel(Promise.resolve(1)); // Violation: Tuple must have exactly 2 elements
 
@@ -36,4 +38,16 @@ const err = await ajel(Promise.resolve(1)); // Violation: Limit declarations to 
 
 // Good: Correct tuple declaration
 const [data, err] = await ajel(Promise.resolve(1));
+
+// -----
+
+// sjel
+// Bad: Incorrect structure
+const [value] = sjel(() => 1)(); // Violation: Tuple must have exactly 2 elements
+
+// Bad: Incorrect structure
+const err = sjel(() => 1)(); // Violation: Limit declarations to a tuple
+
+// Good: Correct tuple declaration
+const [data, err] = sjel(() => 1)();
 ```

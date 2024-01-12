@@ -19,15 +19,17 @@ The use of try-catch blocks does not align with preferred error-handling strateg
 ## Options
 
 - `ajelAlias` (default: 'ajel'): Specify the alias for the ajel method. This allows you to customize the method name if it differs from the default 'ajel'.
+- `sjelAlias` (default: 'sjel'): Specify the alias for the sjel method. This allows you to customize the method name if it differs from the default 'sjel'.
 
 ## Implementation
 
-- [Rule source](../../src/rules/ajel-disable-try-catch.ts)
-- [Test source](../../tests/rules/ajel-disable-try-catch.ts)
+- [Rule source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/src/rules/ajel-disable-try-catch.ts)
+- [Test source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/tests/rules/ajel-disable-try-catch.ts)
 
 ## Examples
 
 ```javascript
+// ajel
 // Bad: Using TryStatement for error handling
 let res;
 
@@ -41,5 +43,17 @@ try {
 // Better: Utilizing ajel method for error handling
 const [res, err] = await ajel(dangerousOperation());
 
-if (err) return err;
+// -----
+
+// sjel
+// Bad: Using TryStatement for error handling
+try {
+  res = foo;
+  JSON.parse("{'badjson`: 'asd'}");
+} catch (error) {
+  return error;
+}
+
+// Better: Utilizing sjel method for error handling
+const [res, err] = sjel(JSON.parse)("{'badjson`: 'asd'}");
 ```

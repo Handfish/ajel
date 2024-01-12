@@ -15,18 +15,29 @@ This rule checks for Variable Declarations that include a call to the ajel metho
 ## Options
 
 - `ajelAlias` (default: 'ajel'): Specify the alias for the ajel method. This allows you to customize the method name if it differs from the default 'ajel'.
+- `sjelAlias` (default: 'sjel'): Specify the alias for the sjel method. This allows you to customize the method name if it differs from the default 'sjel'.
 
 ## Implementation
 
-- [Rule source](../../src/rules/ajel-const-tuples.ts)
-- [Test source](../../tests/rules/ajel-const-tuples.ts)
+- [Rule source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/src/rules/ajel-const-tuples.ts)
+- [Test source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/tests/rules/ajel-const-tuples.ts)
 
 ## Examples
 
 ```javascript
+// ajel
 // Bad: Variable declaration without 'const' for ajel method
 let [res, err] = await ajel(Promise.resolve(1));
 
 // Good: Variable declaration with 'const' for ajel method
 const [res, err] = await ajel(Promise.resolve(1));
+
+// -----
+
+// sjel
+// Bad: Variable declaration without 'const' for sjel method
+let [res, err] = sjel(() => 1)();
+
+// Good: Variable declaration with 'const' for sjel method
+const [res, err] = sjel(() => 1)();
 ```

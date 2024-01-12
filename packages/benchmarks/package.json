@@ -1,6 +1,6 @@
 {
-  "name": "error_handling_benchmarks",
-  "version": "1.0.0",
+  "name": "@ajel/benchmarks",
+  "version": "0.0.1",
   "main": "index.ts",
   "type": "module",
   "license": "MIT",
