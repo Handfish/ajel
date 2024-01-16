@@ -16,7 +16,7 @@
 
 ### Foreword
 
-I would advise to wait for v2 before using ajel. There's a better syntax I'd like to implement, write some linting rules around, and a guide to go with it.
+`I advise against using ajel until v2`. There's a better syntax I'd like to implement, write some linting rules around, and a guide to go with it.
 
 ### Installation
 
