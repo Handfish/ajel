@@ -1,7 +1,7 @@
 {
   "name": "ajel",
   "description": "ajel encourages handling errors similarly to Golang",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
