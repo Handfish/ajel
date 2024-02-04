@@ -1,6 +1,6 @@
 <p align="center"><a href="https://github.com/Handfish/ajel" target="_blank"><img src="https://raw.githubusercontent.com/Handfish/ajel/main/apps/docs/public/ajel2.svg" width="100"></a></p>
 
-<p align="center">`ajel` and `sjel` are thin wrappers for try-catch, coupled with eslint rules to encourage better error handling.</p>
+<p align="center">ajel is a set of thin wrappers for try-catch, coupled with eslint rules to encourage better error handling.</p>
 
 <p align="center">
 <a href="https://www.npmjs.com/ajel" target="_blank"><img src="https://img.shields.io/npm/v/ajel.svg" alt="NPM Version" /></a>
@@ -29,7 +29,7 @@ import { ajel } from 'ajel';
 async function main() {
   const result = await ajel(Promise.resolve('hello world'));
 
-	// Accessing result before narrowing union type throws eslint error
+  // Accessing result before narrowing union type throws eslint error
   // console.log(result);
 
   if (result instanceof Error) {
@@ -48,7 +48,7 @@ import { sjel } from 'ajel';
 async function main() {
   const result = await sjel(JSON.parse, "{}");
 
-	// Accessing result before narrowing union type throws eslint error
+  // Accessing result before narrowing union type throws eslint error
   // console.log(result);
 
   if (result instanceof Error) {
