@@ -48,7 +48,7 @@
     'ajel/ajel-disable-throw': [
       'warn',
     ],
-    'ajel/ajel-strict-error-instanceof': [
+    'ajel/ajel-require-error-handling': [
       'off',
       {
         ajelAlias: 'blimpy',

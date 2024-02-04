@@ -1,10 +1,10 @@
-# ajel/ajel-strict-error-instanceof
+# ajel/ajel-require-error-handling
 
 > This rule enforces narrowing the error type with `instanceof`.
 
 ## Summary
 
-The `ajel-strict-error-instanceof` rule ensures that when calling `ajel` or `sjel`, the error variable is properly narrowed using the `instanceof` operator. This helps developers perform more specific error handling and enhances the type safety of the code.
+The `ajel-require-error-handling` rule ensures that when calling `ajel` or `sjel`, the error variable is properly narrowed using the `instanceof` operator. This helps developers perform more specific error handling and enhances the type safety of the code.
 
 ## Rule Details
 
@@ -21,8 +21,8 @@ Properly narrowing the error type with `instanceof` promotes more precise error 
 
 ## Implementation
 
-- [Rule source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/src/rules/ajel-strict-error-instanceof.ts)
-- [Test source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/tests/rules/ajel-strict-error-instanceof.ts)
+- [Rule source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/src/rules/ajel-require-error-handling.ts)
+- [Test source](https://github.com/Handfish/ajel/blob/main/packages/eslint-plugin-ajel/tests/rules/ajel-require-error-handling.ts)
 
 ## Examples
 

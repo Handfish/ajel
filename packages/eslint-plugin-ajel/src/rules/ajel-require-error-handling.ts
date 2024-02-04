@@ -6,64 +6,6 @@ import { Position } from 'estree';
 import { earliestUsedPosition } from '../utils/earliestUsedPosition';
 import { isPositionEarlier } from '../utils/isPositionEarlier';
 
-//import { ajel } from '../utils/ajel';
-//import { sjel } from '../utils/sjel';
-
-//class CustomError extends Error { }
-//class CustomError2 extends Error { }
-//class CustomError3 extends Error { }
-
-//const testfn = async () => {
-//  const test = await ajel(Promise.resolve('test'));
-//  const test2 = sjel(JSON.parse, '{}');
-//  const test3 = await ajel(Promise.resolve('test'));
-//  const test5 = sjel((stringvar: string) => stringvar, '{}');
-
-//  //------ Test2 SJEL
-//  if (test2 instanceof CustomError) {
-//    //We can access the error here in BinaryExpression with var instanceof
-//    console.log(test2);
-//    return;
-//  }
-
-//  // Cant Access the test2 variable here
-//  console.log(test2);
-//  console.log(test2);
-
-//  if (test2 instanceof Error) {
-//    console.log(test2);
-//    // This return narrows the type of test2 to its Result
-//    return;
-//  }
-//  // Type is narrowed - no longer a union of Result | Error -> just Result
-//  console.log(test2);
-
-//  //------ Test AJEL
-//  // Cant Access the test variable here
-//  console.log(test);
-//  console.log(test);
-
-//  switch (true) {
-//    case test instanceof CustomError3:
-//      //We can access the error here in BinaryExpression with var instanceof
-//      console.log(test);
-//      break;
-//    //We support fall through
-//    case test instanceof CustomError2:
-//    case test instanceof CustomError:
-//      console.log(test);
-//      break;
-//    case test instanceof Error:
-//      break;
-//  }
-//  console.log(test);
-
-//  //---- No handling of AJEL and SJEL returns
-//  console.log(test3);
-//  console.log(test5);
-//};
-//console.log(testfn);
-
 interface ErrorReportInfo {
   ajelOrSjel: 'ajel' | 'sjel';
   instanceofPosition: Position | undefined;
