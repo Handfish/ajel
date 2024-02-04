@@ -204,7 +204,7 @@ tester.run('ajel-require-error-handling', rule, {
       code: `
       class CustomError extends Error { }
 
-      const result = await sjel(JSON.parse, '{}');
+      const result = sjel(JSON.parse, '{}');
       if (result instanceof CustomError) {
         console.log(result);
         return;
@@ -220,7 +220,7 @@ tester.run('ajel-require-error-handling', rule, {
       class CustomError extends Error { }
       class CustomError2 extends Error { }
 
-      const result = await sjel(JSON.parse, '{}');
+      const result = sjel(JSON.parse, '{}');
       switch (true) {
           case result instanceof CustomError:
             console.log(result);

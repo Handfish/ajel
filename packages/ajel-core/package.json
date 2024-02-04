@@ -1,7 +1,7 @@
 {
   "name": "ajel",
   "description": "ajel encourages better error handling via an elslint plugin",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

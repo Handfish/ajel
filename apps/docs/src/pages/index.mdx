@@ -36,7 +36,7 @@ async function main() {
 import { sjel } from 'ajel';
 
 async function main() {
-  const result = await sjel(JSON.parse, "{}");
+  const result = sjel(JSON.parse, "{}");
 
 	// Accessing result before narrowing union type throws eslint error
   // console.log(result);
