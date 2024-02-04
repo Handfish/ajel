@@ -49,7 +49,7 @@
       'warn',
     ],
     'ajel/ajel-require-error-handling': [
-      'off',
+      'error',
       {
         ajelAlias: 'blimpy',
         sjelAlias: "limpyb",

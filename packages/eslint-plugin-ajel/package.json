@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-ajel",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Eslint plugin for ajel - the library which encourages better error handling via an elslint plugin",
   "engines": {
     "node": ">=8.10.0"
