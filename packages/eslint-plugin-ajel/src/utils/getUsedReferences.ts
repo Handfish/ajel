@@ -1,54 +1,32 @@
 /*
+ * Likely Unused
+ *
+ *
+ *
+ *
+ *
  * Surgically taken from @typescript-eslint/eslint-plugin
  */
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 import type { TSESTree } from '@typescript-eslint/utils';
 import { AST_NODE_TYPES, ASTUtils, TSESLint } from '@typescript-eslint/utils';
-
-export const LOGICAL_ASSIGNMENT_OPERATORS = new Set(['&&=', '||=', '??=']);
-
-/**
- * Determine if an identifier is referencing an enclosing name.
- * This only applies to declarations that create their own scope (modules, functions, classes)
- * @param ref The reference to check.
- * @param nodes The candidate function nodes.
- * @returns True if it's a self-reference, false if not.
- */
-export function isSelfReference(
-  ref: TSESLint.Scope.Reference,
-  nodes: Set<TSESTree.Node>
-): boolean {
-  let scope: TSESLint.Scope.Scope | null = ref.from;
-
-  while (scope) {
-    if (nodes.has(scope.block)) {
-      return true;
-    }
-
-    scope = scope.upper;
-  }
-
-  return false;
-}
-
-/**
- * Checks the position of given nodes.
- * @param inner A node which is expected as inside.
- * @param outer A node which is expected as outside.
- * @returns `true` if the `inner` node exists in the `outer` node.
- */
-export function isInside(inner: TSESTree.Node, outer: TSESTree.Node): boolean {
-  return inner.range[0] >= outer.range[0] && inner.range[1] <= outer.range[1];
-}
+import { nodeIsPartOfBinaryExpressionWithInstanceof } from './nodeIsPartOfBinaryExpressionWithInstanceof';
+import {
+  LOGICAL_ASSIGNMENT_OPERATORS,
+  isSelfReference,
+  isInside,
+} from './isUsed';
+import { Reference } from '@typescript-eslint/scope-manager';
 
 /**
  * Determines if the variable is used.
  * @param variable The variable to check.
  * @returns True if the variable is used
  */
-export function isUsedVariable(variable: TSESLint.Scope.Variable): boolean {
+export function getUsedReferences(
+  variable: TSESLint.Scope.Variable
+): Reference[] {
   /**
    * Gets a list of function definitions for a specified variable.
    * @param variable eslint-scope variable object.
@@ -327,7 +305,7 @@ export function isUsedVariable(variable: TSESLint.Scope.Variable): boolean {
 
   let rhsNode: TSESTree.Node | null = null;
 
-  return variable.references.some((ref) => {
+  return variable.references.filter((ref) => {
     const forItself = isReadForItself(ref, rhsNode);
 
     rhsNode = getRhsNode(ref, rhsNode);
@@ -337,7 +315,8 @@ export function isUsedVariable(variable: TSESLint.Scope.Variable): boolean {
       !forItself &&
       !(isFunctionDefinition && isSelfReference(ref, functionNodes)) &&
       !(isTypeDecl && isInsideOneOf(ref, typeDeclNodes)) &&
-      !(isModuleDecl && isSelfReference(ref, moduleDeclNodes))
+      !(isModuleDecl && isSelfReference(ref, moduleDeclNodes)) &&
+      !nodeIsPartOfBinaryExpressionWithInstanceof(ref.identifier)
     );
   });
 }

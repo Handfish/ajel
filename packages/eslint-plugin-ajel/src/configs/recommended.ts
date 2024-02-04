@@ -2,12 +2,8 @@
 
 export const recommended = {
   rules: {
-    'ajel/ajel-const-tuples': 'error',
-    'ajel/ajel-disable-throw': 'error',
+    'ajel/ajel-disable-throw': 'warn',
     'ajel/ajel-disable-try-catch': 'error',
-    'ajel/ajel-require-tuple-declaration': 'error',
     'ajel/ajel-require-error-handling': 'error',
-    'ajel/ajel-strict-error-instanceof': 'off',
-    'ajel/sjel-require-currying': 'error',
   },
 };

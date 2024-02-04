@@ -1,6 +1,6 @@
 # ajel/ajel-disable-throw
 
-> This rule reports an error when a developer uses a `ThrowStatement`.
+> This rule reports a warning when a developer uses a `ThrowStatement`.
 
 - ⭐️ This rule is included in `plugin:ajel/recommended` preset.
 
@@ -10,7 +10,7 @@ The `ajel-disable-throw` rule identifies and reports instances where a `Throw` i
 
 ## Rule Details
 
-This rule checks for the presence of `ThrowStatement` instances in the code. If a `throw` is found, an error is reported with a message advising developers to consider returning an error or a constant string instead of throwing an error.
+This rule checks for the presence of `ThrowStatement` instances in the code. If a `throw` is found, a warning is reported with a message advising developers to consider returning an error or a constant string instead of throwing an error.
 
 ## Why is this Rule Useful?
 

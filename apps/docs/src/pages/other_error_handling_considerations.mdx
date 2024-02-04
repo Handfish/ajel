@@ -13,38 +13,3 @@ Most applications do not need to throw.
 
 When maintaining your own app, consider returning  instead. You can return an error if you need a stack trace,
 or return a string with an error name or code - ie `ERR103-FileNotFound`.
-
-When returning error, the `res` value of the tuple can be matched on via `if(res instanceof CustomError)` 
-
-## Consider Extending the base Error Class
-
-By extending the base Error class, `instanceof Error` will act as a catch all for Errors in your app.
-
-I utilize the following implementation:
-
-```typescript
-/* shamelessly plucked from https://stackoverflow.com/a/48342359 */
-export abstract class CustomError extends Error {
-  constructor(message?: string) {
-    // 'Error' breaks prototype chain here
-    super(message);
-
-    // restore prototype chain
-    const actualProto = new.target.prototype;
-
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(this, actualProto);
-    } else {
-      (this as any).__proto__ = actualProto;
-    }
-  }
-}
-```
-
-This CustomError type can further extended and your custom errors
-will show up nicely in logs.
-
-Javascript errors break the prototype chain so if you want nice
-errors that you can extend you need to do some work to restore it.
-
-

@@ -1,4 +1,11 @@
-export const ajel = <Result>(promise: Promise<Result>) =>
-  promise.then(Array.of).catch((error) => [undefined, error]) as Promise<
-    [result?: Result, error?: unknown]
-  >;
+/* eslint-disable ajel/ajel-disable-try-catch */
+export const ajel = async <Result, ErrorType = Error>(
+  promise: Promise<Result>
+): Promise<Result | ErrorType> => {
+  try {
+    const result = await promise;
+    return result;
+  } catch (error) {
+    return error as ErrorType;
+  }
+};

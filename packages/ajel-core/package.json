@@ -1,6 +1,6 @@
 {
   "name": "ajel",
-  "description": "ajel encourages handling errors similarly to Golang",
+  "description": "ajel encourages better error handling via an elslint plugin",
   "version": "0.0.15",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

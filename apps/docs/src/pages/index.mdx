@@ -12,16 +12,19 @@ Ajel is a **312 byte** set of functions that encourage you to handle errors in a
 
 
 ### Usage
-
 ```typescript
 // Handling async functions that throw
 import { ajel } from 'ajel';
 
 async function main() {
-  const [result, err] = await ajel(Promise.resolve('hello world'));
+  const result = await ajel(Promise.resolve('hello world'));
 
-  if (err) {
-    return err;
+	// Accessing result before narrowing union type throws eslint error
+  // console.log(result);
+
+  if (result instanceof Error) {
+    // This return narrows the type of result to its Result
+    return;
   }
 
   return result;
@@ -29,24 +32,28 @@ async function main() {
 ```
 
 ```typescript
-// Handling synchronous functions that throw
+// Handling syncronous functions that throw
 import { sjel } from 'ajel';
 
-function main() {
-  const [result, err] = sjel(JSON.parse)("{}");
+async function main() {
+  const result = await sjel(JSON.parse, "{}");
 
-  if (err) {
-    return err;
+	// Accessing result before narrowing union type throws eslint error
+  // console.log(result);
+
+  if (result instanceof Error) {
+    // This return narrows the type of result to its Result
+    return;
   }
 
   return result;
 }
 ```
 
-`ajel` and `sjel` are a set of functions that return a tuple representing a potential result and potential error.
-On success, the result item has value. On error, the error item has value. It's that simple.
+`ajel` and `sjel` are thin wrappers for try-catch, coupled with eslint rules to encourage better error handling.</p>
 
-More interestingly, they come with a series of linting tools to help enforce the paradigm available in the package `eslint-plugin-ajel`
+The linting tools are available in the package `eslint-plugin-ajel`
+
 
 ### Basic eslintrc
 
@@ -59,7 +66,7 @@ More interestingly, they come with a series of linting tools to help enforce the
 }
 ```
 
-## Why I ported Golang's most hated feature to JavaScript
+## Why I created AJEL
 
 As I entered yet another year of employment at my current company, I was tasked with a new goal.
 I wanted to learn something new. A little mustached Netflix birdie told me to dig one level deeper.
@@ -75,5 +82,62 @@ not included in the type system, and thus, it is not possible to know what error
 
 I tried a few different approaches. Result-type libraries felt like trying to force Rust's paradigm into a language that
 wasn't designed for it. I wanted to find a way to with the language, not against it.
-Out of the solutions I tried, [one of them felt right.](https://dev.to/karanpratapsingh/go-like-error-handling-in-typescript-4plm#comment-1hc45)
-I had found a way that worked for me. And so, I decided to make a library out of it.
+
+
+## More Advanced Example
+```typescript
+import { ajel, sjel } from 'ajel';
+
+class CustomError extends Error { }
+class CustomError2 extends Error { }
+class CustomError3 extends Error { }
+
+const foobarFn = async () => {
+  const result = await ajel(Promise.resolve('result'));
+  const result2 = sjel(JSON.parse, '{}');
+  const result3 = await ajel(Promise.resolve('result'));
+  const result5 = sjel((stringvar: string) => stringvar, '{}');
+
+  //------ Test2 SJEL
+  if (result2 instanceof CustomError) {
+    //We can access the error here in BinaryExpression with var instanceof
+    console.log(result2);
+    return;
+  }
+
+  // Cant Access the result2 variable here
+  // console.log(result2);
+
+  if (result2 instanceof Error) {
+    console.log(result2);
+    // This return narrows the type of result2 to its Result
+    return;
+  }
+  // Type is narrowed - no longer a union of Result | Error -> just Result
+  console.log(result2);
+
+  //------ Test AJEL
+  // Cant Access the result variable here
+  // console.log(result);
+
+  switch (true) {
+    case result instanceof CustomError3:
+      //We can access the error here in BinaryExpression with var instanceof
+      console.log(test);
+      break;
+    //We support fall through
+    case result instanceof CustomError2:
+    case result instanceof CustomError:
+      console.log(result);
+      break;
+    case result instanceof Error:
+      break;
+  }
+  console.log(result);
+
+  //---- No handling of AJEL and SJEL returns reports Errors
+  // console.log(result3);
+  // console.log(result5);
+};
+
+```

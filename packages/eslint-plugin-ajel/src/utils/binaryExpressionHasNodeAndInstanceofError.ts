@@ -1,6 +1,6 @@
 import { TSESTree } from '@typescript-eslint/utils';
 
-export function isFoundInBinaryExpressionWithInstanceOf(
+export function binaryExpressionHasNodeAndInstanceofError(
   node: TSESTree.Node | null | undefined,
   errorVariable: TSESTree.Identifier | null | undefined
 ): boolean {
@@ -10,10 +10,10 @@ export function isFoundInBinaryExpressionWithInstanceOf(
 
   if (node.operator === 'instanceof') {
     if (
-      (node.left.type === 'Identifier' &&
-        node.left.name === errorVariable?.name) ||
-      (node.right.type === 'Identifier' &&
-        node.right.name === errorVariable?.name)
+      node.left.type === 'Identifier' &&
+      node.left.name === errorVariable?.name &&
+      node.right.type === 'Identifier' &&
+      node.right.name === 'Error'
     ) {
       return true;
     }

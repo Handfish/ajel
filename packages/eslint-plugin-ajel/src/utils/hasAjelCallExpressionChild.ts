@@ -26,9 +26,8 @@ export function hasAjelCallExpressionChild(
     if (
       declarator.init &&
       declarator.init.type === 'CallExpression' &&
-      declarator.init.callee.type === 'CallExpression' &&
-      declarator.init.callee.callee.type === 'Identifier' &&
-      declarator.init.callee.callee.name === (sjelAlias ? sjelAlias : 'sjel')
+      declarator.init.callee.type === 'Identifier' &&
+      declarator.init.callee.name === (sjelAlias ? sjelAlias : 'sjel')
     ) {
       return [true, 'sjel'];
     }
